@@ -28,7 +28,7 @@ app.get('/ping', function(req, res){
     res.send('pong');
 });
 
-router.get('/register', function(req, res){
+app.get('/register', function(req, res){
   res.render('register');
 });
 
