@@ -3,6 +3,7 @@ var morgan = require('morgan'); // Charge le middleware de logging
 var logger = require('log4js').getLogger('Server');
 var bodyParser = require('body-parser');
 var app = express();
+var passport = require('passport');
 
 // config
 app.set('view engine', 'ejs');
@@ -25,6 +26,10 @@ app.get('/login', function(req, res){
 
 app.get('/ping', function(req, res){
     res.send('pong');
+});
+
+router.get('/register', function(req, res){
+  res.render('register');
 });
 
 app.listen(process.env.PORT||1313);
