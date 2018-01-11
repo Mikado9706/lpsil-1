@@ -20,7 +20,6 @@
 		<script src="bootstrap/js/bootstrap.min.js"></script>				
 		<script src="themes/js/superfish.js"></script>	
 		<script src="themes/js/jquery.scrolltotop.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
 		<!--[if lt IE 9]>			
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<script src="js/respond.min.js"></script>
@@ -41,7 +40,7 @@
 							<li><a href="cart">Your Cart</a></li>
 							<li><a href="checkout">Checkout</a></li>					
 							<li><a href="register">Register</a></li>
-                            <li><a href="login">Login</a></li>			
+                            <li><a href="login">Login</a></li>		
 						</ul>
 					</div>
 				</div>
@@ -77,50 +76,30 @@
 			</section>			
 			<section class="header_text sub">
 			<img class="pageBanner" src="themes/images/pageBanner.png" alt="New products" >
-				<h4><span>Login</span></h4>
+				<h4><span>Register</span></h4>
 			</section>			
 			<section class="main-content">				
 				<div class="row">
-					<div class="span5">					
-						<h4 class="title"><span class="text"><strong>Login</strong> Form</span></h4>
-						<form action="/login" method="post">
-							<input type="hidden" name="next" value="/">
+					<div class="span7">					
+						<h4 class="title"><span class="text"><strong>Register</strong> Form</span></h4>
+						<form action="/register" method="post" class="form-stacked">
 							<fieldset>
 								<div class="control-group">
 									<label class="control-label">Username</label>
 									<div class="controls">
-										<input type="text" placeholder="Enter your username" id="username" name="username" class="input-xlarge">
+										<input type="text" placeholder="Enter your username" name="username" class="input-xlarge">
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">Password</label>
+									<label class="control-label">Password:</label>
 									<div class="controls">
-										<input type="password" placeholder="Enter your password" id="password" name="password" class="input-xlarge">
+										<input type="password" placeholder="Enter your password" name="password" class="input-xlarge">
 									</div>
-								</div>
-								<div class="control-group">
-									<input tabindex="3" class="btn btn-inverse large" type="submit" value="Sign into your account">
-									<hr>
-									<!--<p class="reset">Recover your <a tabindex="4" href="#" title="Recover your username or password">username or password</a></p>-->
-								</div>
-                                
-                                <script>
-                                $(document).ready(function(){
-                                    var email,pass;
-                                    $("#submit").click(function(){
-                                        username=$("#username").val();
-                                        password=$("#password").val();
-                                        $.post("http://localhost:1313/login",{username:username,password:password},function(data){      
-                                            if(data==='done')           
-                                            {
-                                                window.location.href="/admin";
-                                            }
-                                        });
-                                    });
-                                });
-                                </script>
+								</div>							                            
+								<hr>
+								<div class="actions"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Create your account"></div>
 							</fieldset>
-						</form>				
+						</form>					
 					</div>				
 				</div>
 			</section>			
@@ -134,7 +113,7 @@
 							<li><a href="./contact">Contact Us</a></li>
 							<li><a href="./cart">Your Cart</a></li>
 							<li><a href="./register">Register</a></li>
-                            <li><a href="./login">Login</a></li>							
+                            <li><a href="./login">Login</a></li>	
 						</ul>					
 					</div>
 					<div class="span4">
