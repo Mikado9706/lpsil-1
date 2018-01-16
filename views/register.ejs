@@ -36,11 +36,10 @@
 				<div class="span8">
 					<div class="account pull-right">
 						<ul class="user-menu">				
-							<li><a href="#">My Account</a></li>
-							<li><a href="cart">Your Cart</a></li>
-							<li><a href="checkout">Checkout</a></li>					
+							<li><a href="profil">My Account</a></li>
+							<li><a href="ajoutArticles">Add articles</a></li>				
 							<li><a href="register">Register</a></li>
-                            <li><a href="login">Login</a></li>		
+                            <li><a href="login">Login</a></li>			
 						</ul>
 					</div>
 				</div>
@@ -81,7 +80,7 @@
 			<section class="main-content">				
 				<div class="row">
 					<div class="span7">					
-						<h4 class="title"><span class="text"><strong>Register</strong> Form</span></h4>
+						<h4 class="title" id="user_existe"><span class="text"><strong>Register</strong> Form</span></h4>
 						<form action="/register" method="post" class="form-stacked">
 							<fieldset>
 								<div class="control-group">
@@ -93,7 +92,7 @@
 								<div class="control-group">
 									<label class="control-label">Password:</label>
 									<div class="controls">
-										<input type="password" placeholder="Enter your password" name="password" class="input-xlarge">
+										<input type="password" placeholder="Enter your password" name="mdp" class="input-xlarge">
 									</div>
 								</div>							                            
 								<hr>
@@ -119,7 +118,7 @@
 					<div class="span4">
 						<h4>My Account</h4>
 						<ul class="nav">
-							<li><a href="#">My Account</a></li>
+							<li><a href="profil">My Account</a></li>
 							<li><a href="#">Order History</a></li>
 							<li><a href="#">Wish List</a></li>
 							<li><a href="#">Newsletter</a></li>

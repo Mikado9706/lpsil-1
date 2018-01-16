@@ -39,7 +39,7 @@
 							<li><a href="profil">My Account</a></li>
 							<li><a href="ajoutArticles">Add articles</a></li>				
 							<li><a href="register">Register</a></li>
-                            <li><a href="login">Login</a></li>		
+                            <li><a href="login">Login</a></li>			
 						</ul>
 					</div>
 				</div>
@@ -80,21 +80,21 @@
 			<section class="main-content">				
 				<div class="row">
 					<div class="span5">					
-						<h4 class="title"><span class="text"><strong>Login</strong> Form</span></h4>
-						<form action="/login" method="post">
+						<h4 class="title"><span class="text"><strong>Admin login</strong> Form</span></h4>
+						<form method="post">
 							<input type="hidden" name="next" value="/">
 							<fieldset>
-                                <p><%=result%></p>
+                                <%=result%>
 								<div class="control-group">
 									<label class="control-label">Username</label>
 									<div class="controls">
-										<input type="text" placeholder="Enter your username" id="username" name="username" class="input-xlarge">
+										<input type="text" placeholder="Enter your username" id="username" name="usernameAdmin" class="input-xlarge">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Password</label>
 									<div class="controls">
-										<input type="password" placeholder="Enter your password" id="password" name="mdp" class="input-xlarge">
+										<input type="password" placeholder="Enter your password" id="password" name="mdpAdmin" class="input-xlarge">
 									</div>
 								</div>
 								<div class="control-group">
@@ -102,7 +102,7 @@
 									<hr>
 									<!--<p class="reset">Recover your <a tabindex="4" href="#" title="Recover your username or password">username or password</a></p>-->
 								</div>
-								<a href="loginAdmin">Se connecter en tant qu'administrateur</a>
+								<a href="login">Se connecter en tant qu'utilisateur</a>
 							</fieldset>
 						</form>				
 					</div>				

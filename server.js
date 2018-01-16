@@ -1,108 +1,106 @@
 var express = require('express');
-var db = require('./db');
 var morgan = require('morgan'); // Charge le middleware de logging
 var logger = require('log4js').getLogger('Server');
 var bodyParser = require('body-parser');
+require('./bd.js');
 var app = express();
-var Uname = "";
-var Upw = "";
-var urlencodedparser = bodyParser.urlencoded({ extended: false });
+var user = require('./modele/utilisateurs.js');
+var userController = require('./controller/utilisateurs.js');
+var produit = require('./modele/articles.js');
+var produitController = require('./controller/articles.js');
+var session = require('express-session');
 
 // config
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false}));
 app.use(morgan('combined')); // Active le middleware de logging
 
 app.use(express.static(__dirname + '/public')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
 
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
+
 logger.info('server start');
 
-// redirection des pages du site
-
 app.get('/', function(req, res){
-    res.redirect('/index');
+    res.redirect('/login');
 });
 
-app.get('/admin', function(req, res){
-    res.render('admin');
+app.get('/login', function(req,res){
+	res.render('login',{result : ""});
 });
 
-app.post('/admin', urlencodedparser, function(req, res){
-    Uname = req.body.username;
-    Upw = req.body.password;
-    db.findUser(Uname,Upw);
-    res.end;
-    res.redirect('/admin');
+app.get('/register', function(req,res){
+	res.render('register');
 });
 
-app.get('/cart', function(req, res){
-    res.render('cart');
+app.get('/index', produitController.getArticles);
+
+app.get('/profil', function(req, res){
+    var id = req.query.id;
+    var username = req.query.username;
+    res.render('profil', {id: id, username: username});
 });
 
-app.get('/checkout', function(req, res){
-    res.render('checkout');
+app.get('/modifierProfil', function(req, res){
+    var id = req.query.id;
+    var username = req.query.username;
+    res.render('modifierProfil', {id: id, username: username});
 });
 
-app.get('/contact', function(req, res){
-    res.render('contact');
-    
+app.get('/modifierMdp', function(req, res){
+    var id = req.query.id;
+    var mdp = req.query.mdp;
+    res.render('modifierMdp', {id: id, mdp: mdp});
 });
 
-app.get('/foot', function(req, res){
-    res.render('foot');
+app.get('/loginAdmin', function(req, res){
+    res.render('loginAdmin',{result : ""});
 });
 
-app.get('/head', function(req, res){
-    res.render('head');
+app.get('/profilAdmin', function(req, res){
+    res.render('profilAdmin');
 });
 
-app.get('/index', function(req, res) {
-    var tagline = "CHANGEMENT REUSSI";
-
-    res.render('index', {
-        tagline: tagline
-    });
+app.get('/ajoutArticles', function(req, res){
+    res.render('ajoutArticles',{result : ""});
 });
 
-app.get('/product_detail', function(req, res){
-    res.render('product_detail');
+app.get('/supprimerArticles', function(req, res){
+    res.render('supprimerArticles',{result : ""});
 });
 
 app.get('/products', function(req, res){
     res.render('products');
 });
 
-app.get('/login', function(req, res){
-    res.render('login');
+app.get('/product_detail', function(req, res){
+    res.render('product_detail');
 });
 
-app.post('/login', urlencodedparser, function(req, res){
-    Uname = req.body.username;
-    Upw = req.body.password;
-    db.findUser(Uname,Upw);
-    res.end;
-    res.redirect('/login');
-});
 
-app.get('/register', function(req, res){
-    res.render('register');
-});
+app.post('/login',userController.connect)
 
-app.post('/register', urlencodedparser, function(req, res){
-    Uname = req.body.username;
-    Upw = req.body.password;
-    db.insertUser(Uname,Upw);
-    res.end;
-    res.redirect('/register');
-    
-});
+app.post('/register',userController.register)
 
-app.listen(process.env.PORT||1313);
+app.post('/profil',userController.getProfil)
 
-process.on('uncaughtException', function(e) {
-    logger.error('FATAL : ', e);
-    process.exit(99);
-})
+app.post('/modifierProfil',userController.modifierProfil)
 
+app.post('/modifierMdp',userController.modifierMdp)
+
+app.post('/loginAdmin', userController.loginAdmin)
+
+app.post('/ajoutArticles', produitController.ajoutArticles)
+
+app.post('/supprimerArticles', produitController.supprimerArticles)
+
+app.listen(process.env.PORT || 1313);
+
+// app.delete('', userController.suprr)
