@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Bootstrap E-commerce Templates</title>
+		<title>Clothstore</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
@@ -38,12 +38,15 @@
 						<ul class="user-menu">				
                             <li><a href="profil">My Account</a></li>	
 							<li><a href="register">Register</a></li>
-                            <li><a href="login">Login</a></li>	
+                            <li><a href="login">Login</a></li>
+							<% if(req.session.user) { %>
+                            <li><a href="logout">Logout</a></li>
+                            <% } %>	
                             <% if(req.session.user && req.session.user.admin == 1) { %>
                             <li><a href="supprimerUtilisateurs">Manage Accounts</a></li>
 							<li><a href="ajoutArticles">Add articles</a></li>
                             <li><a href="ajoutCategories">Add category</a></li>	
-                            <% } %>			
+                            <% } %>	
 						</ul>
 					</div>
 				</div>

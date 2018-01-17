@@ -38,6 +38,10 @@ app.get('/login', function(req,res){
 	res.render('login', {req: req, result : ""});
 });
 
+app.get('/logout', function(req,res){
+	res.render('index', {req: req});
+});
+
 app.get('/register', function(req,res){
 	res.render('register', {req: req,  result : ""});
 });
@@ -117,6 +121,11 @@ app.post('/supprimerArticles', articleController.supprimerArticles)
 app.post('/supprimerUtilisateurs', userController.supprimerUtilisateurs)
 
 app.post('/supprimerCategories', catController.supprimerCategories)
+
+app.post('/logout', (req, res) => {
+    req.session.user = undefined;
+    res.status(200).send();
+});
 
 app.listen(process.env.PORT || 1313);
 
