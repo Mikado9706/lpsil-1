@@ -35,7 +35,7 @@
 				</div>
 				<div class="span8">
 					<div class="account pull-right">
-						<ul class="user-menu">				
+						<ul class="user-menu">		
                             <li><a href="profil">My Account</a></li>	
 							<li><a href="register">Register</a></li>
                             <li><a href="login">Login</a></li>	
@@ -43,7 +43,7 @@
                             <li><a href="supprimerUtilisateurs">Manage Accounts</a></li>
 							<li><a href="ajoutArticles">Add articles</a></li>
                             <li><a href="ajoutCategories">Add category</a></li>	
-                            <%# } %>	
+                            <%# } %>
 						</ul>
 					</div>
 				</div>
@@ -79,13 +79,29 @@
 			</section>			
 			<section class="header_text sub">
 			<img class="pageBanner" src="themes/images/pageBanner.png" alt="New products" >
-				<h4><span>Profil</span></h4>
+				<h4><span>Articles</span></h4>
 			</section>			
 			<section class="main-content">				
 				<div class="row">
 					<div class="span5">					
-						<h4 class="title"><span class="text"><strong>Bienvenue</strong>&nbsp;<%= req.session.user.username %></span></h4>
-							
+						<h4 class="title"><span class="text"><strong>Ajouter</strong> Catégorie</span></h4>
+                        <p><%=result%></p>
+                        <form action="/ajoutCategories" method="post">
+							<input type="hidden" name="next" value="/">
+							<fieldset>
+                                <div class="control-group">
+									<label class="control-label">Nom de la catégorie :</label>
+									<div class="controls">
+										<input type="text" placeholder="Enter the category name" id="categorie" name="nom_categorie" class="input-xlarge">
+									</div>
+								</div>
+								<div class="control-group">
+									<input tabindex="3" class="btn btn-inverse large" type="submit" value="Ajouter la catégorie">
+									<hr>
+								</div>
+                                <a href="/supprimerCategories"> Supprimer une catégorie</a>
+							</fieldset>
+						</form>				
 					</div>				
 				</div>
 			</section>			

@@ -39,10 +39,14 @@
 				<div class="span8">
 					<div class="account pull-right">
 						<ul class="user-menu">				
-						    <li><a href="profil">My Account</a></li>
-							<li><a href="ajoutArticles">Add articles</a></li>				
+                            <li><a href="profil">My Account</a></li>	
 							<li><a href="register">Register</a></li>
-                            <li><a href="login">Login</a></li>			
+                            <li><a href="login">Login</a></li>	
+                            <% if(req.session.user && req.session.user.admin == 1) { %>
+                            <li><a href="supprimerUtilisateurs">Manage Accounts</a></li>
+							<li><a href="ajoutArticles">Add articles</a></li>
+                            <li><a href="ajoutCategories">Add category</a></li>	
+                            <% } %>		
 						</ul>
 					</div>
 				</div>

@@ -40,7 +40,7 @@
                     <ul class="user-menu">
                         <li><a href="profil">My Account</a></li>	
                         <li><a href="register">Register</a></li>
-                        <li><a href="login">Login</a></li>	
+                        <li><a href="login">Login</a></li>		
                         <%# if(req.session.user && req.session.user.admin == 1) { %>
                         <li><a href="supprimerUtilisateurs">Manage Accounts</a></li>
                         <li><a href="ajoutArticles">Add articles</a></li>
@@ -86,35 +86,18 @@
         <section class="main-content">
             <div class="row">
                 <div class="span5">
-                    <h4 class="title"><span class="text"><strong>Supprimer</strong> Article</span></h4>
+                    <h4 class="title"><span class="text"><strong>Supprimer</strong> Categorie</span></h4>
                     <table>
                         <tr>
                             <td>
-                                <% listeArticleForDelete.forEach(function(articles){ %>
+                                <% listeCategorieForDelete.forEach(function(categories){ %>
                                     <table border=1>
                                         <tr>
-                                            <td colspan="2" style="text-align: center;"><strong><%= articles.nom_article%></strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td> Description de l'article </td>
-                                            <td>
-                                                <%= articles.description_article %>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> Prix de l'article </td>
-                                            <td>
-                                                <%= articles.prix_article %> €</td>
-                                        </tr>
-                                        <tr>
-                                            <td> Quantité de cet article </td>
-                                            <td>
-                                                <%= articles.quantite_article %>
-                                            </td>
+                                            <td colspan="2" style="text-align: center;"><strong><%= categories.nom_categorie %></strong></td>
                                         </tr>
                                     </table>
-                                    <form method="post" action="/supprimerArticles">
-                                        <input type="hidden" name="idArticle" value="<%= articles.id %>">
+                                    <form method="post" action="/supprimerCategories">
+                                        <input type="hidden" name="idCategorie" value="<%= categories.id %>">
                                         <p>
                                             <input type="submit" value="Supprimer">
                                         </p>

@@ -1,5 +1,5 @@
 var Articles = require('../modele/articles.js');
-var json_quantite=require("jsonq");
+var sequelize = require('../bd.js');
 
 module.exports.ajoutArticles = function(req,res){
   Articles.create({
@@ -9,9 +9,9 @@ module.exports.ajoutArticles = function(req,res){
   	prix_article: req.body.prix_article
 
   }).then(Articles => {
-    res.render("ajoutArticles", {result: "Article ajouté avec succès"});
+    res.render("ajoutArticles", {req: req, result: "Article ajouté avec succès"});
   }).catch(function(err){
-    res.render("ajoutArticles", {result: "Erreur: ajout non effectué"});
+    res.render("ajoutArticles", {req: req, result: "Erreur: ajout non effectué"});
   });
 }
 
@@ -19,13 +19,24 @@ module.exports.supprimerArticles = function(req,res){
 
   Articles.destroy({
     where: { 
-        nom_article: req.body.nom_article 
+        id: req.body.idArticle
     }
-  }).then(Articles => {
-    res.render("supprimerArticles", {result: "Article supprimé avec succès"});
+  }).then(articles => {
+    sequelize.query("SELECT * FROM articles", { type: sequelize.QueryTypes.SELECT})
+	.then(listeArticleForDelete=> {
+		res.render("supprimerArticles", {req: req, listeArticleForDelete: listeArticleForDelete});
+	})
   }).catch(function(err){
-    res.render("supprimerArticles", {result: "Erreur: suppression non effectuée"});
+    res.render("supprimerArticles", {req: req, result: "Erreur: suppression non effectuée"});
   });
+}
+
+module.exports.getArticleForDelete = function(req,res){
+
+	sequelize.query("SELECT * FROM articles", { type: sequelize.QueryTypes.SELECT})
+	.then(listeArticleForDelete=> {
+		res.render("supprimerArticles", {req: req, listeArticleForDelete: listeArticleForDelete});
+	})
 }
 
 /*module.exports.modifierArticles = function(req,res){
@@ -47,19 +58,8 @@ module.exports.supprimerArticles = function(req,res){
 
 module.exports.getArticles = function(req,res){
 
-  Articles.all().then(listeArticles=>{
-    var lignes = JSON.stringify(listeArticles);
-    var json_quantite_objets=json_quantite(lignes);
-    var listeId = json_quantite_objets,
-        id = listeId.find('id');
-    var listeNom = json_quantite_objets,
-        nom = listeNom.find('nom_article');
-    var listePrix = json_quantite_objets,
-        prix = listePrix.find('prix_article');
-    var listeDescription = json_quantite_objets,
-        description = listeDescription.find('description_article');
-    var listeQuantite = json_quantite_objets,
-        quantite = listeQuantite.find('quantite_article');
-    res.render("index", {id: id.value(), nom: nom.value(), prix: prix.value(), description: description.value(), quantite: quantite.value() });
-  })
+	sequelize.query("SELECT * FROM articles ", { type: sequelize.QueryTypes.SELECT})
+	.then(listeArticles=> {
+		res.render("index", {req: req, listeArticles: listeArticles});
+	})
 }
