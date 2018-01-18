@@ -22,7 +22,12 @@ module.exports.supprimerArticles = function(req,res){
         id: req.body.idArticle
     }
   }).then(articles => {
-    sequelize.query("SELECT * FROM articles", { type: sequelize.QueryTypes.SELECT})
+      Articles.findAll({
+			nom_article: req.body.nom_article,
+            description_article: req.body.description_article,
+            quantite_article: req.body.quantite_article,
+            prix_article: req.body.prix_article
+    })
 	.then(listeArticleForDelete=> {
 		res.render("supprimerArticles", {req: req, listeArticleForDelete: listeArticleForDelete});
 	})
@@ -33,7 +38,12 @@ module.exports.supprimerArticles = function(req,res){
 
 module.exports.getArticleForDelete = function(req,res){
 
-	sequelize.query("SELECT * FROM articles", { type: sequelize.QueryTypes.SELECT})
+	Articles.findAll({
+			nom_article: req.body.nom_article,
+            description_article: req.body.description_article,
+            quantite_article: req.body.quantite_article,
+            prix_article: req.body.prix_article
+    })
 	.then(listeArticleForDelete=> {
 		res.render("supprimerArticles", {req: req, listeArticleForDelete: listeArticleForDelete});
 	})

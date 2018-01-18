@@ -3,8 +3,7 @@ var sequelize = require('../bd.js');
 
 module.exports.ajoutCategories = function(req,res){
   Categories.create({
-  	nom_categorie: req.body.nom_categorie,
-
+  	nom_categorie: req.body.nom_categorie
   }).then(Categories => {
     res.render("ajoutCategories", {result: "Catégorie ajouté avec succès"});
   }).catch(function(err){
@@ -19,27 +18,31 @@ module.exports.supprimerCategories = function(req,res){
         id: req.body.idCategorie
     }
   }).then(Categories => {
-    sequelize.query("SELECT * FROM categories", { type: sequelize.QueryTypes.SELECT})
+    Categories.findAll({
+			nom_categorie: req.body.nom_categorie
+    })
 	.then(listeCategorieForDelete=> {
-		res.render("supprimerCategories", {listeCategorieForDelete: listeCategorieForDelete});
+     res.render("supprimerCategories", {req: req, listeCategorieForDelete: listeCategorieForDelete});
 	})
   }).catch(function(err){
-    res.render("supprimerCategories", {result: "Erreur: suppression de la catégorie non effectuée"});
+    res.render("supprimerCategories", {req: req, result: "Erreur: suppression de la catégorie non effectuée"});
   });
 }
 
 module.exports.getCategorieForDelete = function(req,res){
 
-	sequelize.query("SELECT * FROM categories", { type: sequelize.QueryTypes.SELECT})
-	.then(listeCategorieForDelete=> {
-		res.render("supprimerCategories", {listeCategorieForDelete: listeCategorieForDelete});
+	Categories.findAll({
+			nom_categorie: req.body.nom_categorie
+    })
+    .then(listeCategorieForDelete=> {
+     res.render("supprimerCategories", {req: req, listeCategorieForDelete: listeCategorieForDelete});
 	})
 }
 
-module.exports.getCategories = function(req,res){
+/*module.exports.getCategories = function(req,res){
 
 	sequelize.query("SELECT * FROM categories ", { type: sequelize.QueryTypes.SELECT})
 	.then(listeCategories=> {
 		res.render("index", {listeCategories: listeCategories});
 	})
-}
+}*/

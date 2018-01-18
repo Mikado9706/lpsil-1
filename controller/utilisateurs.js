@@ -81,8 +81,13 @@ module.exports.loginAdmin = function(req,res){
 
 
 module.exports.getAllUsers = function(req,res){
-
-	sequelize.query("SELECT * FROM utilisateurs WHERE admin = 0", { type: sequelize.QueryTypes.SELECT})
+    User.findAll({
+			username: req.body.username,
+            mdp: req.body.mdp,
+        where: {
+            admin: 0
+        }
+    })
 	.then(listeUsers=>{
 		res.render("supprimerUtilisateurs", {req: req, listeUsers: listeUsers});
 	})
@@ -93,7 +98,13 @@ module.exports.supprimerUtilisateurs = function(req,res){
   User.destroy({
     where: { id: req.body.idUsers }
   }).then(user=> {
-    sequelize.query("SELECT * FROM utilisateurs WHERE admin = 0", { type: sequelize.QueryTypes.SELECT})
+    User.findAll({
+			username: req.body.username,
+            mdp: req.body.mdp,
+        where: {
+            admin: 0
+        }
+    })
 	.then(listeUsers=>{
 		res.render("supprimerUtilisateurs", {req: req, listeUsers: listeUsers});
 	});
